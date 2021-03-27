@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-else-return */
 /* eslint-disable import/no-anonymous-default-export */
 
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -61,7 +63,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     return res.status(200).json({ sessionId: stripeCheckoutSession.id });
+  } else {
+    res.setHeader('Allow', 'POST');
+    res.status(405).end('Method not allowed');
   }
-  res.setHeader('Allow', 'POST');
-  res.status(405).end('Method not allowed');
 };
